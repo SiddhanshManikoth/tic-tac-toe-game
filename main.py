@@ -126,13 +126,20 @@ class game_screen(Screen):
         print(o_mark_list)
 
 
-    def winner_screen(self):
+    def winner_screen(self,draw):
+
         result = screen_manager.get_screen(name="result_screen")
         label = result.ids['result']
-        self.manager.transition.direction = "left"
-        self.manager.transition.duration = 0.5
-        self.manager.current = "result_screen"
-        label.text = f"THE WINNER IS {(self.den).upper()}"
+        if draw:
+            self.manager.transition.direction = "left"
+            self.manager.transition.duration = 0.5
+            self.manager.current = "result_screen"
+            label.text = f"IT'S  A DRAW!!!!!!"
+        else:
+            self.manager.transition.direction = "left"
+            self.manager.transition.duration = 0.5
+            self.manager.current = "result_screen"
+            label.text = f"THE WINNER IS {(self.den).upper()}"
 
     def cal(self):
 
@@ -140,34 +147,37 @@ class game_screen(Screen):
         label=result.ids['result']
         players_list = [x_mark_list, o_mark_list]
         current_player_list=players_list[self.list_switch]
+
         if '1_1' in current_player_list:
             if '2_1' in current_player_list:
                 if '3_1' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
             if '1_2' in current_player_list:
                 if '1_3' in current_player_list:
-                   self.winner_screen()
+                   self.winner_screen(draw=False)
             if '2_2' in current_player_list:
                 if '3_3' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
         if '3_1' in current_player_list:
             if '3_2' in current_player_list:
                 if '3_3' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
             if '2_2' in current_player_list:
                 if '1_3' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
         if '1_2' in current_player_list:
             if '2_2' in current_player_list:
                 if '3_2' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
         if '2_3' in current_player_list:
             if '2_2' in current_player_list:
                 if '2_1' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
             if '1_3' in current_player_list:
                 if '3_3' in current_player_list:
-                    self.winner_screen()
+                    self.winner_screen(draw=False)
+        if len(x_mark_list)==5:
+            self.winner_screen(draw=True)
 
 
 
